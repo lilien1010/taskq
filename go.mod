@@ -1,4 +1,4 @@
-module github.com/vmihailenco/taskq/v3
+module github.com/lilien1010/taskq/v3
 
 go 1.11
 
