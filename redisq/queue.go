@@ -237,6 +237,12 @@ func (q *Queue) Release(msg *taskq.Message) error {
 	// Make the delete and re-queue operation atomic in case we crash midway
 	// and lose a message.
 	pipe := q.redis.TxPipeline()
+
+	// Before we delete msg, ack it first.
+	if err := pipe.XAck(msg.Ctx, q.stream, q.streamGroup, msg.ID).Err(); err != nil {
+		return err
+	}
+
 	err := pipe.XDel(msg.Ctx, q.stream, msg.ID).Err()
 	if err != nil {
 		return err
