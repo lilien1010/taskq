@@ -91,7 +91,7 @@ func NewQueue(opt *taskq.QueueOptions) *Queue {
 		schedulerLockPrefix: redisPrefix + opt.Name + ":scheduler-lock:",
 	}
 
-	schedulerDeferFunc := func(name string, wg sync.WaitGroup) {
+	schedulerDeferFunc := func(name string, wg *sync.WaitGroup) {
 		wg.Done()
 		// Recover from panic. but the panic goroutine is not working anymore
 		// TODO create an extra scheduler once panic happend
@@ -103,19 +103,19 @@ func NewQueue(opt *taskq.QueueOptions) *Queue {
 
 	q.wg.Add(1)
 	go func() {
-		defer schedulerDeferFunc("delayed", q.wg)
+		defer schedulerDeferFunc("delayed", &q.wg)
 		q.scheduler("delayed", q.scheduleDelayed)
 	}()
 
 	q.wg.Add(1)
 	go func() {
-		defer schedulerDeferFunc("pending", q.wg)
+		defer schedulerDeferFunc("pending", &q.wg)
 		q.scheduler("pending", q.schedulePending)
 	}()
 
 	q.wg.Add(1)
 	go func() {
-		defer schedulerDeferFunc("clean_zombie_consumers", q.wg)
+		defer schedulerDeferFunc("clean_zombie_consumers", &q.wg)
 		q.scheduler("clean_zombie_consumers", q.cleanZombieConsumers)
 	}()
 
