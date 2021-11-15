@@ -17,8 +17,8 @@ import (
 	"github.com/go-redis/redis/v8"
 	"github.com/go-redis/redis_rate/v9"
 
-	"github.com/vmihailenco/taskq/v3"
-	"github.com/vmihailenco/taskq/v3/redisq"
+	"github.com/lilien1010/taskq"
+	"github.com/lilien1010/taskq/redisq"
 )
 
 const waitTimeout = time.Second

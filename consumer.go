@@ -12,7 +12,7 @@ import (
 
 	"github.com/bsm/redislock"
 
-	"github.com/vmihailenco/taskq/v3/internal"
+	"github.com/lilien1010/taskq/internal"
 )
 
 const stopTimeout = 30 * time.Second

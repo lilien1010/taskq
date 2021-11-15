@@ -1,4 +1,4 @@
-module github.com/vmihailenco/taskq/v3
+module github.com/lilien1010/taskq
 
 go 1.11
 
@@ -19,4 +19,4 @@ require (
 	github.com/onsi/gomega v1.16.0
 	github.com/satori/go.uuid v1.2.0
 	github.com/vmihailenco/msgpack/v5 v5.3.5
-)
+) 

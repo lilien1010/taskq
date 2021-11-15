@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"sync"
 
-	"github.com/vmihailenco/taskq/v3"
+	"github.com/lilien1010/taskq"
 )
 
 type Factory struct {

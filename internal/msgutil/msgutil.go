@@ -6,8 +6,8 @@ import (
 
 	"github.com/dgryski/go-farm"
 
-	"github.com/vmihailenco/taskq/v3"
-	"github.com/vmihailenco/taskq/v3/internal"
+	"github.com/lilien1010/taskq"
+	"github.com/lilien1010/taskq/internal"
 )
 
 func WrapMessage(msg *taskq.Message) *taskq.Message {

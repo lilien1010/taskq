@@ -5,7 +5,7 @@ import (
 	"go.opentelemetry.io/otel/codes"
 	"go.opentelemetry.io/otel/trace"
 
-	"github.com/vmihailenco/taskq/v3"
+	"github.com/lilien1010/taskq"
 )
 
 var tracer = otel.Tracer("github.com/vmihailenco/taskq")

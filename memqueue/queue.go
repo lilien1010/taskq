@@ -8,9 +8,9 @@ import (
 	"sync/atomic"
 	"time"
 
-	"github.com/vmihailenco/taskq/v3"
-	"github.com/vmihailenco/taskq/v3/internal"
-	"github.com/vmihailenco/taskq/v3/internal/msgutil"
+	"github.com/lilien1010/taskq"
+	"github.com/lilien1010/taskq/internal"
+	"github.com/lilien1010/taskq/internal/msgutil"
 )
 
 type scheduler struct {
