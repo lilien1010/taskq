@@ -6,7 +6,7 @@
 
 # Golang asynchronous task/job queue with Redis, SQS, IronMQ, and in-memory backends
 
-![build workflow](https://github.com/vmihailenco/taskq/actions/workflows/build.yml/badge.svg)
+![build workflow](https://github.com/lilien1010/taskq/actions/workflows/build.yml/badge.svg)
 [![PkgGoDev](https://pkg.go.dev/badge/github.com/lilien1010/taskq)](https://pkg.go.dev/github.com/lilien1010/taskq?tab=doc)
 
 ## Installation
@@ -231,7 +231,7 @@ taskq supports tracing out-of-the-box using [OpenTelemetry](https://opentelemetr
 instrument a queue, use the following code:
 
 ```go
-import "github.com/vmihailenco/taskq/extra/taskqotel/v3"
+import "github.com/lilien1010/taskq/extra/taskqotel/v3"
 
 consumer := queue.Consumer()
 consumer.AddHook(&taskqotel.OpenTelemetryHook{})

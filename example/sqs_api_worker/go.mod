@@ -1,4 +1,4 @@
-module github.com/vmihailenco/taskq/example/api_worker/sqs_api_worker
+module github.com/lilien1010/taskq/example/api_worker/sqs_api_worker
 
 go 1.15
 
