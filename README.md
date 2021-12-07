@@ -137,6 +137,7 @@ _ = myQueue.Add(msg)
 for i := 0; i < 100; i++ {
     msg := t.WithArgs(ctx, "World")
     msg.Name = "hello-world" // unique
+    msg.UniqueDuration = 1 * time.Hour // unique in a period of 1 hour, by default it's 24 hour
     _ = myQueue.Add(msg)
 }
 
@@ -164,8 +165,9 @@ for i := 0; i < 100; i++ {
 ## Message deduplication
 
 If a `Message` has a `Name` then this will be used as unique identifier and messages with the same
-name will be deduplicated (i.e. not processed again) within a 24 hour period (or possibly longer if
-not evicted from local cache after that period). Where `Name` is omitted then non deduplication
+name will be deduplicated (i.e. not processed again) within a `UniqueDuration` period (by default, if you don't set this field, it will be 24 hours). 
+
+Where `Name` is omitted then non deduplication
 occurs and each message will be processed. `Task`'s `WithMessage` and `WithArgs` both produces
 messages with no `Name` so will not be deduplicated. `OnceWithArgs` sets a name based off a
 consistent hash of the arguments and a quantised period of time (i.e. 'this hour', 'today') passed

@@ -514,7 +514,7 @@ func (q *Queue) isDuplicate(msg *taskq.Message) bool {
 	if msg.Name == "" {
 		return false
 	}
-	return q.opt.Storage.Exists(msg.Ctx, msgutil.FullMessageName(q, msg))
+	return q.opt.Storage.Exists(msg.Ctx, msgutil.FullMessageName(q, msg), msg.UniqueDuration)
 }
 
 func findMessageByID(msgs []*taskq.Message, id string) *taskq.Message {

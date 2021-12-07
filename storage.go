@@ -9,7 +9,7 @@ import (
 )
 
 type Storage interface {
-	Exists(ctx context.Context, key string) bool
+	Exists(ctx context.Context, key string, duration time.Duration) bool
 }
 
 var _ Storage = (*localStorage)(nil)
@@ -26,7 +26,7 @@ func NewLocalStorage() Storage {
 	return &localStorage{}
 }
 
-func (s *localStorage) Exists(_ context.Context, key string) bool {
+func (s *localStorage) Exists(_ context.Context, key string, duration time.Duration) bool {
 	s.mu.Lock()
 	defer s.mu.Unlock()
 
@@ -38,12 +38,22 @@ func (s *localStorage) Exists(_ context.Context, key string) bool {
 		}
 	}
 
-	_, ok := s.cache.Get(key)
+	preVal, ok := s.cache.Get(key)
 	if ok {
 		return true
 	}
 
-	s.cache.Add(key, nil)
+	preTime, ok := preVal.(time.Time)
+	if ok {
+		if time.Now().Sub(preTime) < duration {
+			return true
+		} else {
+			s.cache.Remove(key)
+			return false
+		}
+	}
+
+	s.cache.Add(key, time.Now().Add(duration))
 	return false
 }
 
@@ -59,8 +69,8 @@ func newRedisStorage(redis Redis) Storage {
 	}
 }
 
-func (s *redisStorage) Exists(ctx context.Context, key string) bool {
-	val, err := s.redis.SetNX(ctx, key, "", 24*time.Hour).Result()
+func (s *redisStorage) Exists(ctx context.Context, key string, duration time.Duration) bool {
+	val, err := s.redis.SetNX(ctx, key, "", duration).Result()
 	if err != nil {
 		return true
 	}

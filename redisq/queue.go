@@ -422,7 +422,7 @@ func (q *Queue) isDuplicate(msg *taskq.Message) bool {
 	if msg.Name == "" {
 		return false
 	}
-	exists := q.opt.Storage.Exists(msg.Ctx, msgutil.FullMessageName(q, msg))
+	exists := q.opt.Storage.Exists(msg.Ctx, msgutil.FullMessageName(q, msg), msg.UniqueDuration)
 	return exists
 }
 

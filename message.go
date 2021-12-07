@@ -29,6 +29,10 @@ type Message struct {
 	// are processed only once.
 	Name string `msgpack:"-"`
 
+	// UniqueDuration specifies the duration of the unique task name in memory.
+	// by default it is set to 24 hour.
+	UniqueDuration time.Duration `msgpack:"-"`
+
 	// Delay specifies the duration the queue must wait
 	// before executing the message.
 	Delay time.Duration `msgpack:"-"`
